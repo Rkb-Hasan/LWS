@@ -102,6 +102,26 @@ With a Fragment — no wrapper appears at all, just the raw children directly:
 
 ---
 
+## 5. Fragment under the hood — compilation, render, and commit
+
+**At compilation (Babel/JSX transform):** `<>...</>` doesn't transpile to `React.createElement("Fragment", ...)` the way a normal tag would. Depending on the JSX transform in use, it compiles to something like:
+```js
+React.createElement(React.Fragment, null, child1, child2)
+```
+or, with the modern automatic transform:
+```js
+_jsxs(_Fragment, { children: [child1, child2] })
+```
+Either way, the key point: `React.Fragment` is passed as the `type`, exactly the same slot a real component or tag name would occupy — Babel doesn't treat Fragment as a special syntax case, it treats it as a totally ordinary `type` value, just one that happens to be a built-in React symbol rather than a string or your own function.
+
+**At render phase:** when React walks the element tree and encounters a node whose `type` is `React.Fragment`, it recognizes this specific built-in type and treats it as **"expand these children directly into my parent — don't represent me as a node of my own."** It still participates in diffing (React needs to match up the Fragment's children against the previous render's children, same as any other node), but the Fragment itself contributes no entry that will become a DOM instruction.
+
+**At commit phase:** this is where the "no real DOM node" promise actually gets kept. When React walks the finished, diffed tree and starts creating/updating actual DOM nodes, it simply **skips creating anything for the Fragment node itself** and inserts its children directly into whatever real DOM node is the nearest actual parent. So if `Row` (from the earlier `<td>`/`<td>` example) is used inside a `<tr>`, the commit phase attaches both `<td>` elements straight onto the `<tr>` — there was never a moment where an extra element existed and then got removed; it simply never gets created in the first place.
+
+**Why this matters concretely:** it's the mechanical reason Fragment is "free" — it costs nothing at runtime beyond being one extra (very cheap) node in the element tree during diffing. No DOM node is ever created for it, so there's nothing to insert, style, or accidentally target with a CSS selector.
+
+---
+
 ## Q&A Summary (for quick revision)
 
 **Q: What specific problem does Fragment solve?**
