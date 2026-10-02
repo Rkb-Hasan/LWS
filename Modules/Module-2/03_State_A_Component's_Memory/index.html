@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <div id="btnContainer">
+        <button id="nextButton">Next</button>
+        <button id="prevButton">Prev</button>
+      </div>
+      <h3 id="header"></h3>
+      <button id="moreButton"></button>
+      <p id="description"></p>
+      <img id="image" />
+    </div>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+        padding: 0;
+      }
+      #btnContainer {
+        display: flex;
+        gap: 10px;
+        justify-items: center;
+        max-width: fit-content;
+      }
+    </style>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
