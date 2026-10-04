@@ -1,4 +1,4 @@
-import frame from "./src/assets/frame.png";
+import frame from "./assets/frame.png";
 const Hero = () => {
   return (
     <section className="pb-28.5 pt-20 md:mt-25">
