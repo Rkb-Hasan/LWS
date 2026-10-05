@@ -1,1 +1,31 @@
+/* 1. Define the font family names and point to your local files */
+@font-face {
+  font-family: "Inter";
+  src:
+    url("/public/fonts/Inter-VariableFont_opsz,wght.woff2")
+      format("woff2-variations"),
+    url("/public/fonts/Inter-VariableFont_opsz,wght.woff2") format("woff2");
+  font-weight: 100 900; /* Supports all weights seamlessly if using a Variable Font */
+  font-style: normal;
+  font-display: swap; /* Prevents invisible text while loading */
+}
+
+@font-face {
+  font-family: "Inter";
+  src:
+    url("/public/fonts/Inter-Italic-VariableFont_opsz,wght.woff2")
+      format("woff2-variations"),
+    url("/public/fonts/Inter-Italic-VariableFont_opsz,wght.woff2")
+      format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 2. Import Tailwind v4 */
 @import "tailwindcss";
+
+/* 3. Inject it into Tailwind's default sans stack */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}

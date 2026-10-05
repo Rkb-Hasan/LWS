@@ -23,7 +23,10 @@ const TaskBoard = () => {
     setTaskToUpdate(task);
     setShowAddModal(true);
   }
-
+  function handleCloseClick() {
+    setShowAddModal(false);
+    setTaskToUpdate(null);
+  }
   function handleAddEditTask(e, newTask, isAdd) {
     e.preventDefault();
     if (isAdd) {
@@ -39,8 +42,7 @@ const TaskBoard = () => {
         }),
       );
     }
-    setTaskToUpdate(null);
-    setShowAddModal(false);
+    handleCloseClick();
   }
 
   function handleDeleteTask(taskId) {
@@ -59,11 +61,6 @@ const TaskBoard = () => {
     });
 
     setTasks(newTasks);
-  }
-
-  function handleCloseClick() {
-    setShowAddModal(false);
-    setTaskToUpdate(null);
   }
 
   function handleSearch(searchTerm) {
