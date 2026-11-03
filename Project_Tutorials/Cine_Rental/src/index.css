@@ -8,3 +8,9 @@
   margin-inline: auto;
   padding: 1.25rem;
 }
+@utility dark {
+  background-color: #171923;
+  color: white;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
